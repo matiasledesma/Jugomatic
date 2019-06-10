@@ -1,0 +1,14 @@
+*Programa de la juguera sin internet*
+
+|preparar setup|
+|setup preparando pines y presentando|
+|Loop|
+	empieza chekeando la distancia
+	|compara la distancia para saber si hay vaso vacio|
+		*si hay vacio vacio elije el jugo sirve jugo y espera a que lo retire*
+		
+		*si hay vaso lleno pide que lo vacies*
+		*si no hay vaso sigue el de largo el loop*
+|Final del Loop|
+
+*|Hacer un arduino para tomar datos de distacion|*

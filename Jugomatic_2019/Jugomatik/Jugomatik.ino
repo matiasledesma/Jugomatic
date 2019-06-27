@@ -33,10 +33,10 @@ void setup() {
   pinMode(relay2, OUTPUT);
   pinMode(relay3, OUTPUT);
   pinMode(relay4, OUTPUT);
-  digitalWrite(relay1, HIGH);
-  digitalWrite(relay2, HIGH);
-  digitalWrite(relay3, HIGH);
-  digitalWrite(relay4, HIGH);
+  digitalWrite(relay1, LOW);
+  digitalWrite(relay2, LOW);
+  digitalWrite(relay3, LOW);
+  digitalWrite(relay4, LOW);
 }
 
 
@@ -70,36 +70,36 @@ void loop() {
         lcd.clear();
         lcd.setCursor(0,0);
         lcd.print("eligio manzana");
-        digitalWrite(relay1, LOW);
-        delay(5000);
         digitalWrite(relay1, HIGH);
+        delay(5000);
+        digitalWrite(relay1, LOW);
         lcd.clear();
         } 
       if(key == '2'){
         lcd.clear();
         lcd.setCursor(0,0);  
         lcd.print("eligio naranja");
-        digitalWrite(relay2, LOW);
-        delay(5000);
         digitalWrite(relay2, HIGH);
+        delay(5000);
+        digitalWrite(relay2, LOW);
         lcd.clear();
         }
       if(key == '3'){
         lcd.clear();
         lcd.setCursor(0,0);
         lcd.print("eligio pomelo");
-        digitalWrite(relay3, LOW);
-        delay(5000);
         digitalWrite(relay3, HIGH);
+        delay(5000);
+        digitalWrite(relay3, LOW);
         lcd.clear();
         }
       if(key == 'A'){
         lcd.clear();
         lcd.setCursor(0,0);
         lcd.print("eligio limon");
-        digitalWrite(relay4, LOW);
-        delay(5000);
         digitalWrite(relay4, HIGH);
+        delay(5000);
+        digitalWrite(relay4, LOW);
         lcd.clear();
         }
        } //cierre si el vaso esta vacio

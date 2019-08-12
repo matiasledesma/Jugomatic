@@ -1,9 +1,20 @@
+#include <NewPing.h>/*LIBRERIA SENSOR*/
+
 #include <Keypad.h>
 #include <LiquidCrystal.h>
 
 LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
 
-int relay1 =42, relay2 =43, relay3 =44, relay4 =45;
+int relay1 =42, relay2 =43, relay3 =44, relay4 =45, Trig, duracion, Echo, distancia, vasovacio; /*Agregue Trig, duracion, Echo, distancia, vasovacio; PORQUE NO ESTABAN DECLARADAS*/
+
+/*SENSOR
+#define TRIGGER_PIN  12
+#define ECHO_PIN     13
+#define MAX_DISTANCE 100
+
+/*Crear el objeto de la clase NewPing*/
+/*NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+/*SENSOR*/
 
 //Config del Teclado
 const byte filas=4;
@@ -69,7 +80,7 @@ void loop() {
       if(key == '1'){
         lcd.clear();
         lcd.setCursor(0,0);
-        lcd.print("eligio manzana");
+        lcd.print("Eligio manzana");
         digitalWrite(relay1, HIGH);
         delay(5000);
         digitalWrite(relay1, LOW);
@@ -78,7 +89,7 @@ void loop() {
       if(key == '2'){
         lcd.clear();
         lcd.setCursor(0,0);  
-        lcd.print("eligio naranja");
+        lcd.print("Eligio naranja");
         digitalWrite(relay2, HIGH);
         delay(5000);
         digitalWrite(relay2, LOW);
@@ -87,7 +98,7 @@ void loop() {
       if(key == '3'){
         lcd.clear();
         lcd.setCursor(0,0);
-        lcd.print("eligio pomelo");
+        lcd.print("Eligio pomelo");
         digitalWrite(relay3, HIGH);
         delay(5000);
         digitalWrite(relay3, LOW);
@@ -96,7 +107,7 @@ void loop() {
       if(key == 'A'){
         lcd.clear();
         lcd.setCursor(0,0);
-        lcd.print("eligio limon");
+        lcd.print("Eligio limon");
         digitalWrite(relay4, HIGH);
         delay(5000);
         digitalWrite(relay4, LOW);

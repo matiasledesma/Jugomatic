@@ -1,0 +1,51 @@
+var express = require('express');
+var router = express.Router();
+var models = require("../mysql");
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+
+  models.Jugera.findAll().then(result => {
+    res.status(200).jsonp(result);
+
+  })
+  console.log('llego');
+});
+//Obtener
+router.get('/:id', function(req, res, next){
+
+  let id = req.params.id;
+  models.Jugera.findOne({
+    where: {
+      id_jugera: id
+    }
+  }).then(result => {
+    if(result== null){
+      res.status(200).jsonp("no existe");
+    }
+    res.status(200).jsonp(result);
+  })
+});
+//Eliminar
+router.delete('/:id', function(req, res, next){
+
+  let id = req.params.id;
+  models.Jugera.destroy({
+    where: {
+      id_jugera: id
+    }
+  }).then(result => {
+    if(result== null){
+      res.status(200).jsonp("no existe");
+    }
+    res.status(200).jsonp(result);
+  })
+});
+//Post
+router.post('/', function(req, res, next){
+  let Jugera = req.body;
+  models.Jugera.create(Jugera).then(result => {
+    res.status(200).jsonp({status:true , response:"se creo con exito"});
+  })
+
+});
+module.exports = router;

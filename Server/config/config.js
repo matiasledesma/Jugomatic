@@ -3,7 +3,7 @@ module.exports = {
                    "db": {
                      "prod": {
                        "host": "localhost",
-                       "database": "skereee",
+                       "database": "jugomatik",
                        "username": "root",
                        "password": "",
                        "dialect": "mysql",

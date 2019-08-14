@@ -20,6 +20,7 @@ create table registro (
     jugera int(11) not null,
     jugo int(11) not null,
     created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_at datetime DEFAULT NULL,
     key jugera_id (jugera),
     key jugo_id (jugo),
     CONSTRAINT registro_jugera FOREIGN KEY (jugera) REFERENCES Jugera (id_jugera) ON DELETE NO ACTION ON UPDATE NO ACTION,

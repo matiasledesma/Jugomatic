@@ -1,13 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var models = require("../mysql");
-/* GET users listing. */
-router.get('/', function(req, res, next) {
+const dbConnection = require("../mysql/dbConnection");
 
-  models.Jugo.findAll().then(result => {
+const connection = dbConnection();
+/* GET users listing. */
+router.get('/', function(req, res) {
+  connection.query('select * from jugo', (err, result) => {
     res.status(200).jsonp(result);
-  })
-  console.log('llego');
+})
+console.log('llego')
 });
 //Obtener
 router.get('/:id', function(req, res, next){

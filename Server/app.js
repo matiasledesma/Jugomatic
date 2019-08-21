@@ -7,6 +7,8 @@ var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var registroRouter = require('./routes/registro');
+var jugeraRouter = require('./routes/jugera');
+var jugoRouter = require('./routes/jugo');
 
 var app = express();
 
@@ -20,5 +22,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/registro', registroRouter);
-
+app.use('/jugera', jugeraRouter);
+app.use('/jugo', jugoRouter);
 module.exports = app;

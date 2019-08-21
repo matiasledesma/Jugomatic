@@ -19,7 +19,23 @@
     <title>Lista Usuarios</title>
 
 </head>
+
+
 <body>
+        <nav class="navbar navbar-dark bg-dark text-center">
+            <h5 class="text-white text-center">Estadisticas</h5>
+        </nav>
+        <div class="mb-3">
+            <h3>Cantidad de pedidos de la escuela: <select class="custom-select mb-4" id="jugera"></select><button class="btn btn-success">contar</button></h3><br>
+        </div>
+        <h3>Cantidad de pedidos de jugo de: <select id="jugo"></select><button>contar</button></h3><br>
+</body>
+
+
+<body>
+    <nav class="navbar navbar-dark bg-dark text-center">
+        <h5 class="text-white text-center">Registros Jugomatik</h5>
+    </nav>
     <table id="registro" class="table table-striped table-bordered table-sm">
         <div class="atributos">
             <tr class="thead-dark">
@@ -32,6 +48,7 @@
     </table>
     </table>
 </body>
+
 
 <script>
         $.ajax({
@@ -64,5 +81,40 @@
             
             }
         });
+        
+        $.ajax({
+            url: 'http://localhost:3000/jugera/', 
+            type: 'GET',
+            beforeSend: function (){
+            console.log("procesando");
+            },
+            success: function (response) {
+                console.log(response);
+                response.forEach(function(jugera){
+                    html2 = "<option value="+jugera.id_jugera+">" + jugera.escuela + "</option>";
+                    $("#jugera").append(html2);
+                    console.log("aca llega");
+                });
+            
+            }
+        });
+
+        $.ajax({
+            url: 'http://localhost:3000/jugo/', 
+            type: 'GET',
+            beforeSend: function (){
+            console.log("procesando");
+            },
+            success: function (response) {
+                console.log(response);
+                response.forEach(function(jugo){
+                    html3 = "<option value="+jugo.id_jugo+">" + jugo.sabor_jugo + "</option>";
+                    $("#jugo").append(html3);
+                    console.log("aca llega");
+                });
+            
+            }
+        });
+
 </script>
 </html>

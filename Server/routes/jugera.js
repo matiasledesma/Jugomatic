@@ -1,14 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var models = require("../mysql");
+const dbConnection = require("../mysql/dbConnection");
+
+const connection = dbConnection();
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-
-  models.Jugera.findAll().then(result => {
+router.get('/', function(req, res) {
+  connection.query('select * from Jugera', (err, result) => {
     res.status(200).jsonp(result);
-
-  })
-  console.log('llego');
+})
+console.log('llego')
 });
 //Obtener
 router.get('/:id', function(req, res, next){

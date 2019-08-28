@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
     <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -25,11 +28,21 @@
         <nav class="navbar navbar-dark bg-dark text-center">
             <h5 class="text-white text-center">Estadisticas</h5>
         </nav>
-        <div class="mb-3">
-            <h3>Cantidad de pedidos de la escuela: <select class="custom-select mb-4" id="jugera"></select><button class="btn btn-success">contar</button></h3><br>
+        
+            <table>
+                <tr>
+                    <th><div class="form-group mx-sm-3 mb-2">
+                <h3>Cantidad de pedidos de la escuela:  <select class="custom-select" style="width:300px;" id="jugera"></select></th><th><button class="btn btn-primary" onClick="contar_jugera()">contar</button><br></h3>
+                    </div></th>
+                </tr>
+                <tr>    
+                    <th><div class="form-group mx-sm-3 mb-2">
+                <h3>Cantidad de pedidos de jugo de:    <select id="jugo" class="custom-select" style="width:300px;"></select></th><th><button class="btn btn-primary" onclick="contar_jugo()">contar</button></h3><br>
+                    </div></th>
+                </tr>
+            </table>
         </div>
-        <h3>Cantidad de pedidos de jugo de: <select id="jugo"></select><button>contar</button></h3><br>
-</body>
+    </body>
 
 
 <body>
@@ -51,70 +64,105 @@
 
 
 <script>
-        $.ajax({
-            url: 'http://localhost:3000/registro/', 
-            type: 'GET',
-            beforeSend: function (){
-            console.log("procesando");
-            },
-            success: function (response) {
-                console.log(response);
-                response.forEach(function(registro){
-                    html = "<tr>"
-                                +"<td>"
-                                    +registro.id_registro
-                                +"</td>"
-                                +"<td>"
-                                    +registro.escuela
-                                +"</td>"
-                                +"<td>"
-                                    +registro.sabor_jugo
-                                +"</td>"
-                                +"<td>"
-                                    +registro.created_at
-                                +"</td>"
-                                    +registro.update_at
-                                +"</td>"
-                            +"</tr>";
-                    $("#registro").append(html);
-                });
-            
-            }
-        });
-        
-        $.ajax({
-            url: 'http://localhost:3000/jugera/', 
-            type: 'GET',
-            beforeSend: function (){
-            console.log("procesando");
-            },
-            success: function (response) {
-                console.log(response);
-                response.forEach(function(jugera){
-                    html2 = "<option value="+jugera.id_jugera+">" + jugera.escuela + "</option>";
-                    $("#jugera").append(html2);
-                    console.log("aca llega");
-                });
-            
-            }
+
+        $(document).ready(function(e){
+            get_all()
+            setInterval(function(){
+                $(".registro_juguera").remove();
+                $(".jugueras").remove();
+                $(".jugo").remove();
+                get_all()
+            }, 3000);
         });
 
+        function get_all(){
+            $.ajax({
+                url: 'http://localhost:3000/registro/', 
+                type: 'GET',
+                beforeSend: function (){
+                },
+                success: function (response) {            
+                    response.forEach(function(registro){
+                        var horalocal = moment.utc(registro.created_at).local().format('DD-MM-YYYY HH:mm:ss');
+                        html = "<tr class='registro_juguera'>"
+                                    +"<td>"
+                                        +registro.id_registro
+                                    +"</td>"
+                                    +"<td>"
+                                        +registro.escuela
+                                    +"</td>"
+                                    +"<td>"
+                                        +registro.sabor_jugo
+                                    +"</td>"
+                                    +"<td>"
+                                        +horalocal
+                                    +"</td>"
+                                        +registro.update_at
+                                    +"</td>"
+                                +"</tr>";
+                        $("#registro").append(html);
+                    });
+                
+                }
+            });
+
+            $.ajax({
+                url: 'http://localhost:3000/jugera/', 
+                type: 'GET',
+                beforeSend: function (){
+                },
+                success: function (response) {
+                    response.forEach(function(jugera){
+                        html2 = "<option class='registro_juguera' value="+jugera.id_jugera+">" + jugera.escuela + "</option>";
+                        $("#jugera").append(html2);
+                    });
+                
+                }
+            });
+
+            $.ajax({
+                url: 'http://localhost:3000/jugo/', 
+                type: 'GET',
+                beforeSend: function (){
+                },
+                success: function (response) {
+                    response.forEach(function(jugo){
+                        html3 = "<option class='registro_juguera' value="+jugo.id_jugo+">" + jugo.sabor_jugo + "</option>";
+                        $("#jugo").append(html3);
+                    });
+                
+                }
+            });
+            }
+        
+        
+        
+        
+//poner en una funcion para el boton
+    function contar_jugera(){
         $.ajax({
-            url: 'http://localhost:3000/jugo/', 
+            url: 'http://localhost:3000/registro/contar_jugeras/'+ $("#jugera").val(),
             type: 'GET',
             beforeSend: function (){
-            console.log("procesando");
             },
             success: function (response) {
-                console.log(response);
-                response.forEach(function(jugo){
-                    html3 = "<option value="+jugo.id_jugo+">" + jugo.sabor_jugo + "</option>";
-                    $("#jugo").append(html3);
-                    console.log("aca llega");
-                });
-            
+                Swal.fire('La cantidad de pedidos es:   '+ response.resultado);
             }
-        });
+        })
+    };
+
+    function contar_jugo(){
+        $.ajax({
+            url: 'http://localhost:3000/registro/contar_jugos/'+ $("#jugo").val(),
+            type: 'GET',
+            beforeSend: function (){
+            },
+            success: function (response) {
+                Swal.fire('La cantidad de pedidos es:   '+ response.resultado);
+            }
+        })
+    };
 
 </script>
+
 </html>

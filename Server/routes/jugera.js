@@ -9,7 +9,6 @@ router.get('/', function(req, res) {
   connection.query('select * from Jugera', (err, result) => {
     res.status(200).jsonp(result);
 })
-console.log('llego')
 });
 //Obtener
 router.get('/:id', function(req, res, next){

@@ -5,7 +5,7 @@ module.exports = {
                        "host": "localhost",
                        "database": "jugomatik",
                        "username": "root",
-                       "password": "",
+                       "password": "boca1512",
                        "dialect": "mysql",
                        //"logging":  true
                      }

@@ -33,7 +33,9 @@ void setup() {
   
   Serial.begin(9600);
   lcd.begin(16, 2);
+  lcd.setCursor(1,0);
   lcd.print("Jugomatik 2.0");
+  lcd.setCursor(0,0);
   delay(2000);
     
   lcd.clear();
@@ -88,9 +90,9 @@ if (distanceCm < 9) {
   }
  
     
-    lcd.setCursor(0,0);
+    lcd.setCursor(1,0);
     lcd.print("Seleccione un");
-    lcd.setCursor(0,1);
+    lcd.setCursor(6,1);
     lcd.print("Jugo");
     if (key != NO_KEY){ 
       lcd.clear();

@@ -43,9 +43,10 @@ router.delete('/:id', function(req, res, next){
 //Post
 router.post('/', function(req, res, next){
   let Jugera = req.body;
-  models.Jugera.create(Jugera).then(result => {
-    res.status(200).jsonp({status:true , response:"se creo con exito"});
-  })
-
+  connection.query('INSERT INTO jugera (escuela) values ("' + Jugera.escuela + '");', (err, result) => {
+    res.status(200).jsonp( 
+      result[0]
+    );
+    })
 });
 module.exports = router;

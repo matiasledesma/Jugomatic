@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../librerias/sweetalert2@8.js"></script>
+    <script src="../librerias/moment.min.js"></script>
+    <script src="../librerias/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="../librerias/bootstrap.min.css">
+    <title>Formularios</title>
+</head>
+<body>
+  <div class="navbar navbar-dark bg-dark text-center">
+    <h1 class="text-white text-center">Proyecto Jugomatik: Formularios</h1>
+  </div>
+    <form id="new_jugera">
+      <div class="conteiner card col">
+        <div class="col form-row">
+          <h2>Agregar Jugera al sistema: </h2>
+        </div>
+        <div class="row col ">
+          <h4 class="col-md-7">Ingresar nombre de la escuela donde se encuentra la nueva jugera: </h4>
+          <input type="text" id="nombre_escuela" class="form-control col-md-3" placeholder="Nombre de la Escuela">
+          <h4 class="col"></h4>
+          <button type="submit" id="submit" onclick="new_jugera()" class="btn btn-primary ">Agregar</button>
+        </div>
+    </div>
+      </form>
+      <form id="new_jugo">
+          <div class="conteiner card col">
+              <div class="col form-row ">
+                <h2>Agregar un sabor de jugo al sistema: </h2>
+              </div>
+              <div class="row col">
+                <h4 class="col-md-7">Ingresar nombre del sabor nuevo de jugo: </h4>
+                <input type="text" id="sabor_jugo" class="form-control col-md-3" placeholder="Sabor de Jugo">
+                <h4 class="col"></h4>
+                <button type="submit" id="submit" onclick="new_jugo()" class="btn btn-primary ">Agregar</button>
+              </div>
+          </div>
+        </form>
+    <form id="registro">
+      <div class="conteiner card col">
+        <div class="col form-row">
+          <h2>Crear registro manual</h2>
+        </div>
+        <div class="row col">
+        <h4 class="col-md-2">Jugera id: </h4>
+        <input type="text" id="jugera" class="form-control col-md-3">
+        <h4 class="col-md-2">Jugo id:</h4>
+        <input type="text" id="jugo" class="form-control col-md-3">
+        <h4 class="col"></h4>
+        <button type="submit" id="submit" class="btn btn-success">Crear</button>
+        </div>
+      </div>
+    </form>
+</body>
+<script>
+$("#registro").submit(function(event){
+    event.preventDefault();
+
+    $.post("http://localhost:3000/registro/",
+      {
+        jugera: $("#jugera").val(),
+        jugo: $("#jugo").val()
+      });
+  });
+function new_jugera(){
+  $.ajax({
+            url: "http://localhost:3000/jugera/",
+            type: 'POST',
+            data: {escuela: $("#nombre_escuela").val()}
+        })
+};
+
+function new_jugo(){
+      $.ajax({
+            url: "http://localhost:3000/jugo/",
+            type: 'POST',
+            data: {sabor_jugo: $("#sabor_jugo").val()}
+        })
+};
+</script>
+</html>
